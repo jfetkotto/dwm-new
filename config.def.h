@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -9,27 +9,27 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char dmenufont[]       = "Hack Nerd Font:size=12:style=bold:antialias=true";
 static const char *fonts[]          = {"Hack Nerd Font:antialias=true:size=12:style=bold"};
 
-static const char col_bg[]             = "#282828";
-static const char col_red[]            = "#cc241d";
-static const char col_green[]          = "#98971a";
-static const char col_yellow[]         = "#d79921";
-static const char col_blue[]           = "#458588";
-static const char col_magenta[]        = "#b16286";
-static const char col_cyan[]           = "#689d6a";
-static const char col_white[]          = "#a89984";
-static const char col_bright_black[]   = "#928374";
-static const char col_bright_red[]     = "#fb4934";
-static const char col_bright_green[]   = "#b8bb26";
-static const char col_bright_yellow[]  = "#fabd2f";
-static const char col_bright_blue[]    = "#83a598";
-static const char col_bright_magenta[] = "#d3869b";
-static const char col_bright_cyan[]    = "#8ec07c";
-static const char col_bright_white[]   = "#ebdbb2";
+static const char col_bg[]             = "#1C1917";
+static const char col_red[]            = "#DE6E7C";
+static const char col_green[]          = "#819B69";
+static const char col_yellow[]         = "#B77E64";
+static const char col_blue[]           = "#6099C0";
+static const char col_magenta[]        = "#B279A7";
+static const char col_cyan[]           = "#66A5AD";
+static const char col_white[]          = "#B4BDC3";
+static const char col_bright_black[]   = "#403833";
+static const char col_bright_red[]     = "#E8838F";
+static const char col_bright_green[]   = "#8BAE68";
+static const char col_bright_yellow[]  = "#D68C67";
+static const char col_bright_blue[]    = "#61ABDA";
+static const char col_bright_magenta[] = "#CF86C1";
+static const char col_bright_cyan[]    = "#65B8C1";
+static const char col_bright_white[]   = "#888F94";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_bright_white, col_bg, col_white },
-	[SchemeSel]  = { col_bg, col_yellow,  col_yellow },
+	[SchemeNorm] = { col_bright_white, col_bg, col_bg },
+	[SchemeSel]  = { col_bright_white, col_bright_black,  col_bright_white },
 };
 
 /* tagging */
@@ -44,6 +44,7 @@ static const Rule rules[] = {
 	{ "Gimp",                      NULL,        NULL,   0,            1,           -1 },
 	{ "Firefox",                   NULL,        NULL,   1 << 1,       0,           -1 },
 	{ "st-256color",               "ncmpcpp",   NULL,   1 << 2,       0,           -1 },
+    { "steam",                     NULL,        NULL,   1 << 3,       0,           -1 },
 	{ "org.surfer-project.surfer", NULL,        NULL,   1 << 4,       0,           -1 },
 };
 
@@ -73,13 +74,15 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_bright_white, "-sb", col_yellow, "-sf", col_bg, NULL };
+static const char *dmenucmd[]   = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_bright_white, "-sb", col_bright_black, "-sf", col_bright_white, NULL };
+static const char *roficmd[]    = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]    = { "st", NULL };
 static const char *ncmpcppcmd[] = { "st", "-n", "ncmpcpp", "-e", "ncmpcpp", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = roficmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
